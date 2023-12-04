@@ -27,7 +27,7 @@ const UserAccountNav = ({ user }: UserAccountNavProps) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align='end'
-        className='bg-white shadow-lg border-zinc-200 border rounded p-1 my-1'>
+        className='shadow-lg border-zinc-200 border rounded p-1 my-1'>
         <div className='flex items-center justify-start gap-2 p-2'>
           <div className='flex flex-col space-y-1 leading-none'>
             {user?.name && <p className='font-medium'>{user.name}</p>}
