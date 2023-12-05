@@ -5,9 +5,7 @@ import SigninButton from "@/components/SigninButton"
 import UserAccountNav from "@/components/UserAccountNav"
 import { ThemeToggle } from "@/components/ThemeToggle"
 
-type Props = {}
-
-const Navbar = async (props: Props) => {
+const Navbar = async () => {
   const session = await getAuthSession()
   // console.log(session)
 

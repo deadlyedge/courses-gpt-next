@@ -4,9 +4,7 @@ import { signIn } from "next-auth/react"
 
 import { Button } from "@/components/ui/button"
 
-type Props = {}
-
-const SigninButton = (props: Props) => {
+const SigninButton = () => {
   return (
     <Button
       variant='ghost'

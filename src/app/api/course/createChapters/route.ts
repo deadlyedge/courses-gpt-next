@@ -28,23 +28,25 @@ export async function POST(req: Request, res: Response) {
     const { title, units } = createChaptersSchema.parse(body)
 
     let output_units: outputUnits = await strict_output(
-      "你是一个人工智能，能够策划课程内容，提出一些相关的 chapter titles，并为每个 chapter 找到相关的 YouTube 视频",
+      "You are an AI capable of curating course content, coming up with relevant chapter titles, and finding relevant youtube videos for each chapter",
       new Array(units.length).fill(
-        `你的工作就是创建一门关于 ${title} 的课程. 用户已经请求为每个 Unit 创建 Chapters。请为 each chapter 提供详细的 YouTube search query，未来可用于查找每一章的教育视频资源。 每个查询都应该在 youtube 上找到一个教育信息课程。`
+        `It is your job to create a course about ${title}. The user has requested to create chapters for each of the units. Then, for each chapter, provide a detailed youtube search query that can be used to find an informative educationalvideo for each chapter. Each query should give an educational informative course in youtube.`
       ),
       {
         title: "Unit 标题",
         chapters:
-          "一个 Chapters 数组，每个 Chapter 在 JSON 对象中应该有一个 youtube_search_query 和一个 chapter_title 键",
+          "an array of chapters, each chapter should have a youtube_search_query and a chapter_title key in the JSON object",
       }
     )
+    console.log("[output units:]", output_units)
     const imageSearchTerm = await strict_output(
       "你是一个能够找到与课程最相关的图像的AI",
       `请为课程标题 ${title} 提供一个好的图像搜索词. 该搜索词将被输入到 unsplash API 中，因此请确保它是一个能够返回良好结果的搜索词`,
       {
-        image_search_term: "一个很好的课程标题搜索词",
+        image_search_term: "与课程标题非常相关的搜索词",
       }
     )
+    console.log("[image search term:]", imageSearchTerm)
 
     // console.log(output_units)
     // return NextResponse.json({ output_units, imageSearchTerm })
@@ -56,7 +58,7 @@ export async function POST(req: Request, res: Response) {
       data: {
         name: title,
         // xdream 由于api接口问题，暂停使用unsplash，直接传入搜索关键词，未来再做处理
-        image: imageSearchTerm.image_search_term.replaceAll("\n", "").trim(), 
+        image: imageSearchTerm.image_search_term.replaceAll("\n", "").trim(),
       },
     })
 

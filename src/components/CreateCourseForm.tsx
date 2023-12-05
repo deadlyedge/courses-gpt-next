@@ -22,11 +22,9 @@ import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
 
-type Props = {}
-
 type Input = z.infer<typeof createChaptersSchema>
 
-const CreateCourseForm = (props: Props) => {
+const CreateCourseForm = () => {
   const router = useRouter()
   const { toast } = useToast()
   const { mutate: createChapters, isPending } = useMutation({

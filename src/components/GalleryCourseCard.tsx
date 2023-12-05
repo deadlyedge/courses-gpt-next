@@ -11,6 +11,9 @@ type Props = {
 }
 
 const GalleryCourseCard = async ({ course }: Props) => {
+  course.image =
+    "https://pixabay.com/get/g174f2690bf88230a2f74406929c3f30babc78220ad96c3600a2cf44972e3416bce87da95fb41c33d88c012d666a0d8fdd3e07550217fc68a5578b4ab6aba1a21_640.jpg"
+
   return (
     <>
       <div className='border rounded-lg border-secondary'>

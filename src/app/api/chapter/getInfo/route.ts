@@ -39,10 +39,10 @@ export async function POST(req: Request, res: Response) {
     transcript = transcript.split("").slice(0, maxLength).join()
 
     const { summary }: { summary: string } = await strict_output(
-      "你是一个能够总结 YouTube 文字记录的AI",
-      "总结在200字以内，不要谈论赞助商或任何与主题无关的内容，也不要介绍总结的内容。\n" +
+      "You are an AI capable of summarising a youtube transcript",
+      "summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about.\n" +
         transcript,
-      { summary: "总结摘要" }
+      { summary: "summary of the transcript" }
     )
 
     const questions = await getQuestionsFromTranscript(transcript, chapter.name)
