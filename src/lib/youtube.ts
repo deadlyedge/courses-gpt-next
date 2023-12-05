@@ -23,7 +23,7 @@ export async function searchYoutube(searchQuery: string) {
 export async function getTranscript(videoId: string) {
   try {
     let transcript_arr = await YoutubeTranscript.fetchTranscript(videoId, {
-      lang: "zh-cn",
+      lang: "zh",
       country: "TW",
     })
     let transcript = ""
