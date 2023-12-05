@@ -35,12 +35,13 @@ export async function POST(req: Request, res: Response) {
     }
     const videoId = await searchYoutube(chapter.youtubeSearchQuery)
     let transcript = await getTranscript(videoId)
-    let maxLength = 400
-    transcript = transcript.split("").slice(0, maxLength).join()
+    let maxLength = 500
+    // transcript = transcript.split(" ").slice(0, maxLength).join(" ")
+    transcript = transcript.slice(0, maxLength)
 
     const { summary }: { summary: string } = await strict_output(
       "You are an AI capable of summarising a youtube transcript",
-      "summarise in 250 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about.\n" +
+      "summarise in 200 words or less and do not talk of the sponsors or anything unrelated to the main topic, also do not introduce what the summary is about.\n" +
         transcript,
       { summary: "summary of the transcript" }
     )
