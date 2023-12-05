@@ -28,14 +28,14 @@ export async function POST(req: Request, res: Response) {
     const { title, units } = createChaptersSchema.parse(body)
 
     let output_units: outputUnits = await strict_output(
-      "你是一个人工智能，能够策划课程内容，提出相关的章节标题，并为每个章节找到相关的 YouTube 视频",
+      "你是一个人工智能，能够策划课程内容，提出一些相关的 chapter titles，并为每个 chapter 找到相关的 YouTube 视频",
       new Array(units.length).fill(
-        `你的工作就是创建一门关于 ${title} 的课程. 用户已经请求为每个单元创建章节。请为每一章提供详细的 YouTube search query，未来可用于查找每一章的教育视频资源。 每个查询都应该在 youtube 上找到一个教育信息课程。`
+        `你的工作就是创建一门关于 ${title} 的课程. 用户已经请求为每个 Unit 创建 Chapters。请为 each chapter 提供详细的 YouTube search query，未来可用于查找每一章的教育视频资源。 每个查询都应该在 youtube 上找到一个教育信息课程。`
       ),
       {
-        title: "单元标题",
+        title: "Unit 标题",
         chapters:
-          "一个章节数组，每个章节在 JSON 对象中应该有一个 youtube_search_query 和一个 chapter_title 键",
+          "一个 Chapters 数组，每个 Chapter 在 JSON 对象中应该有一个 youtube_search_query 和一个 chapter_title 键",
       }
     )
     const imageSearchTerm = await strict_output(
@@ -50,13 +50,13 @@ export async function POST(req: Request, res: Response) {
     // return NextResponse.json({ output_units, imageSearchTerm })
 
     // const course_image = await getUnsplashImage(
-    //   imageSearchTerm.image_search_term.trim()
+    //   imageSearchTerm.image_search_term.replaceAll("\n", "").trim()
     // )
     const course = await prisma.course.create({
       data: {
         name: title,
         // xdream 由于api接口问题，暂停使用unsplash，直接传入搜索关键词，未来再做处理
-        image: imageSearchTerm.image_search_term, 
+        image: imageSearchTerm.image_search_term.replaceAll("\n", "").trim(), 
       },
     })
 
